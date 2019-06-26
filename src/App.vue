@@ -1,21 +1,16 @@
 <template>
   <div id="app">
-   <Menu></Menu>
-   <PageBody></PageBody>
+   <router-view/>
     <!--<HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Menu from './components/Menu.vue'
-import PageBody from './components/PageBody.vue'
+
 
 export default {
   name: 'app',
-  components: {
-    PageBody,Menu
-  }
+  
 }
 </script>
 
