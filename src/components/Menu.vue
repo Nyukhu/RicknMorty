@@ -1,8 +1,6 @@
 <template>
   <div class="nav-bar">
     <router-link :to="{ name : 'favorites' }" class="nav-item">Favoris</router-link>
-    
-    
   </div>
 </template>
 <script>

@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Axios from 'axios'
 
 import FavoritePage from './pages/fav/FavoritePage'
 import HomePage from './pages/home/HomePage'
 //import UserPage from './pages/user/UserPage'
-
+Vue.prototype.$http = Axios
 Vue.use(Router)
 
 export default new Router({
