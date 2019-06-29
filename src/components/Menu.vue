@@ -1,5 +1,6 @@
 <template>
   <div class="nav-bar">
+    <router-link :to="{ name : 'Locations' }" class="nav-item">Locations</router-link>
     <router-link :to="{ name : 'favorites' }" class="nav-item">Favoris</router-link>
   </div>
 </template>
@@ -13,7 +14,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 .nav-bar{
     height: 5vh;
@@ -22,6 +23,8 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    position:sticky;
+    top: 0px;
 }
 .nav-item{
   height: 100%;
@@ -34,7 +37,7 @@ export default {
 }
 .nav-item:hover{
   background-color: #2c2c2c;
-  transition: all cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   color: white;
 }
 a{

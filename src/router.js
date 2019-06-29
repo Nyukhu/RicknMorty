@@ -4,6 +4,7 @@ import Axios from 'axios'
 
 import FavoritePage from './pages/fav/FavoritePage'
 import HomePage from './pages/home/HomePage'
+import LocationsPage from './pages/Locations/LocationsPage'
 //import UserPage from './pages/user/UserPage'
 Vue.prototype.$http = Axios
 Vue.use(Router)
@@ -19,7 +20,13 @@ export default new Router({
             path: '/fav',
             name: 'favorites',
             component: FavoritePage
-        }/*,
+        },
+        {
+            path: '/locations',
+            name: 'Locations',
+            component: LocationsPage
+        }
+        /*,
         {
             path: '/user/:id',
             name: 'user',
