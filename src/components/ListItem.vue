@@ -1,5 +1,5 @@
 <template>
-    <div class="list-item" :data-id=item.id>
+    <router-link :to="{ name : 'location', params: { id: item.id, location: item }}" class="list-item flex-column" :data-id=item.id @click=getCharaters(item.subList)>
         <div class="list-content flex-column center-content">
             <div class="list-infos flex-row space-between">
                 <div class="list-align-left flex-row ">
@@ -9,8 +9,8 @@
                 <p class="list-family">{{ item.family }}</p>
             </div>
         </div> 
-                     
-    </div>
+                  
+    </router-link>
 </template>
 <script>
 
@@ -22,6 +22,9 @@ export default {
             
         }
     },
+    methods: {
+        
+    }
 }
 </script>
 
@@ -52,7 +55,7 @@ export default {
     margin: 0.5vh 1vw;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-
+    text-decoration: none;
 }
 
 .list-item:hover {

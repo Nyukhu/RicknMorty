@@ -27,9 +27,11 @@ import Menu from '../../components/Menu.vue'
             }
         },
         methods : {
+            //fonction permettant de retourner un nombre entier
             rand: function rand(min, max) {
                 return Math.floor(Math.random() * (max - min) ) + min;
             },
+            //fonction servant à éxéder la limite de requete autorisé et ainsi se prendre une restriction de 13h
             getRandImage: function () {
                 this.$http
                     .get('https://rickandmortyapi.com/api/character/')
