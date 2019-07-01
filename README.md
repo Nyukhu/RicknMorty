@@ -1,4 +1,4 @@
-## How to launch awsomness
+## How to launch awsomeness
 
 ### back-end : 
 
@@ -26,3 +26,6 @@ change database infos in server.js and models/db.js to match your database
 **launch app**
 ``` npm run serve ```
 
+### difficulties
+
+aprrendre les technos/framework (vue cli / nodejs avec express)
