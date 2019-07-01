@@ -29,3 +29,5 @@ change database infos in server.js and models/db.js to match your database
 ### difficulties
 
 aprrendre les technos/framework (vue cli / nodejs avec express)
+
+le stage et la chaleur
