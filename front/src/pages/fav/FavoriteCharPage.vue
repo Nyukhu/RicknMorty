@@ -38,7 +38,7 @@ import Menu from '../../components/Menu.vue'
                         this.getCharaters(chartab)
                     })
             },
-             getCharaters : function(characters){
+            getCharaters : function(characters){
                 this.$http
                     .get('https://rickandmortyapi.com/api/character/'+characters.charids)
                     .then(response => {

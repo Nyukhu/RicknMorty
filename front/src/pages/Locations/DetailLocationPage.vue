@@ -17,6 +17,9 @@
                             <p class="location-text-field">
                                 {{this.$route.params.location.subList.length}} résidents
                             </p>
+                            <p>
+                                <div class="add-to-fav" v-on:click=toogleFavLocation()>Add favorite</div>
+                            </p>
                         </div>
                         <div class="info-display">
                            
@@ -47,6 +50,75 @@
             }
         },
         methods : {
+
+            toogleFavLocation : function(){
+                let id = this.$route.params.location.id;
+                console.log(id)
+                let favBtn = document.querySelector('.add-to-fav')
+
+                 if (!favBtn.classList.contains('clicked')) {
+                favBtn.classList.add('clicked');
+                favBtn.style.border = "";
+                favBtn.style.backgroundColor = "greenyellow";
+                favBtn.style.color = "#2c2c2c";
+                favBtn.textContent = "Favorite"
+                this.addLocFav(id)
+
+                
+                }else{
+                    
+                    favBtn.classList.remove('clicked');                
+                    favBtn.style.border = "solid 1px greenyellow";
+                    favBtn.style.backgroundColor = "";
+                    favBtn.style.color = "greenyellow";
+                    favBtn.textContent = "Add to favorite"
+
+                    this.deleteLocFav(id)
+                    
+                }
+            },
+            addLocFav : function(id){
+                let favoriteLocation = {user_iduser : 1, location_idlocation : id}
+
+                this.$http
+                    .post("http://localhost:3000/location",favoriteLocation)
+                    .then((response) => {
+                        console.log(response)
+                    })
+                     .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            deleteLocFav : function(id){
+                this.$http
+                    .delete("http://localhost:3000/location",{ data: {user_iduser : 1, location_idlocation : id}})
+                    .then((response) => {
+                        console.log(response)
+                    })
+                     .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            isFav : function(id){
+
+                this.$http
+                    .get("http://localhost:3000/location")
+                    .then((response) => {
+                        response.data.forEach((location) => {
+
+                            if (location.location_idlocation == id) {
+                                
+                                let favBtn = document.querySelector('.add-to-fav')
+                                console.log(favBtn)
+                                favBtn.classList.add('clicked');
+                                favBtn.style.border = "";
+                                favBtn.style.backgroundColor = "greenyellow";
+                                favBtn.style.color = "#2c2c2c";
+                                favBtn.textContent = "Favorite"
+                            }
+                        })
+                    })
+        },
             //fonction getCharacters : permet de récupérer le détail des information des résidents.
             //params : 
             //characters : tableau des ids des résidents
@@ -89,7 +161,7 @@
             }
         },
         mounted(){
-            
+            this.isFav(this.$route.params.location.id)
             this.getCharaters(this.$route.params.location.subList)
             console.log()
 
@@ -136,6 +208,16 @@
     justify-content: center;
     align-items: center;
 
+}
+.add-to-fav{
+    border:solid 1px greenyellow;
+    color: greenyellow;
+    padding: 1vh 1vw;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+
+}
+.add-to-fav:hover{
+    cursor: pointer;
 }
 .side-column p{
     margin : 1vh;

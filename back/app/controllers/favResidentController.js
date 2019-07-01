@@ -1,6 +1,6 @@
 'use strict';
 
-var FavResident = require('../model/appModel.js');
+var FavResident = require('../model/favResidentModel.js');
 
 exports.list_all_favResidents = function(req, res) {
   FavResident.getAllFavResident(function(err, FavResident) {
@@ -12,8 +12,6 @@ exports.list_all_favResidents = function(req, res) {
     res.send(FavResident);
   });
 };
-
-
 
 exports.create_a_favResident = function(req, res) {
   var new_FavResident = new FavResident(req.body);
@@ -34,7 +32,6 @@ else{
   });
 }
 };
-
 
 exports.read_a_favResident = function(req, res) {
   FavResident.getFavResidentById(FavResident, function(err, FavResident) {

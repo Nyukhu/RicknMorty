@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Axios from 'axios'
 
-import FavoritePage from './pages/fav/FavoritePage'
+import FavoriteCharPage from './pages/fav/FavoriteCharPage'
+import FavoriteLocPage from './pages/fav/FavoriteLocPage'
 import HomePage from './pages/home/HomePage'
 import LocationsPage from './pages/Locations/LocationsPage'
 import DetailLocationPage from './pages/Locations/DetailLocationPage'
@@ -19,9 +20,14 @@ export default new Router({
             component: HomePage
         },
         {
-            path: '/fav',
-            name: 'favorites',
-            component: FavoritePage
+            path: '/favChar',
+            name: 'favoritesChar',
+            component: FavoriteCharPage
+        },
+        {
+            path: '/favLoc',
+            name: 'favoritesLoc',
+            component: FavoriteLocPage
         },
         {
             path: '/locations',

@@ -108,16 +108,10 @@ export default {
                     });
         },
         isFav : function(){
-
-            
-
              this.$http
                     .get("http://localhost:3000/residents")
                     .then((response) => {
                         response.data.forEach((resident) => {
-
-
-
                             if (resident.resident_idresident == this.item.id) {
                                 
                                 let starContainer = this.$el.querySelector(".fav-star");
