@@ -33,14 +33,6 @@ else{
 }
 };
 
-exports.read_a_favResident = function(req, res) {
-  FavResident.getFavResidentById(FavResident, function(err, FavResident) {
-    if (err)
-      res.send(err);
-    res.json(FavResident);
-  });
-};
-
 exports.delete_a_favResident = function(req, res) {
 
  var new_FavResident = new FavResident(req.body);

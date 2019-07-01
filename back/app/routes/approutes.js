@@ -1,11 +1,12 @@
 'use strict';
 module.exports = function (app) {
+    //ajout de cors pour le cross-origin
     var cors = require('cors');
     app.use(cors());
     var favoriteResidents = require('../controllers/favResidentController');
     var favoriteLocation = require('../controllers/favLocationController');
 
-    // todoList Routes
+    //Routes
     app.route('/residents')
         .get(favoriteResidents.list_all_favResidents)
         .post(favoriteResidents.create_a_favResident)
@@ -15,11 +16,4 @@ module.exports = function (app) {
         .get(favoriteLocation.list_all_FavLocations)
         .post(favoriteLocation.create_a_FavLocation)
         .delete(favoriteLocation.delete_a_FavLocation);
-
-    app.route('/residents/:residentId')
-        .get(favoriteResidents.read_a_favResident);
-
-
-    app.route('/resident/create')
-        .post(favoriteResidents.read_a_favResident);
 };
