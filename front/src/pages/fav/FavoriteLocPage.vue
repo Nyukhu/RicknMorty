@@ -54,8 +54,7 @@ import ListItem from '../../components/ListItem.vue'
             //fonction getLocations : interroge l'api rickandmorty afin de récupérer les localisations
             //params : 
             //type : le type de localisation attendu (si le type = "" alors getLocations renverra toutes les localisations)
-            //pageNum : le numéro de la page récupéré de l'api
-            getLocations : function(type,pageNum){
+            getLocations : function(type){
                 this.$http
                     .get('http://localhost:3000/location')
                     .then(response => {
@@ -97,7 +96,7 @@ import ListItem from '../../components/ListItem.vue'
             
         },
         mounted(){
-            this.getLocations("",1)
+            this.getLocations("")
         }
     }
 </script>

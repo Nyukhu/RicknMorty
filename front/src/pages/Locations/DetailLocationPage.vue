@@ -51,6 +51,7 @@
         },
         methods : {
 
+            //fonction toogleFavLocation : permet d'ajouter ou de supprimer une location aux favoris au click
             toogleFavLocation : function(){
                 let id = this.$route.params.location.id;
                 console.log(id)
@@ -77,6 +78,10 @@
                     
                 }
             },
+
+            //fonction addLocaFav : effectue une requête vers l'api afin d'enrgistrer un favoris
+            //params : 
+            // id : l'id de la location a ajouter aux favoris
             addLocFav : function(id){
                 let favoriteLocation = {user_iduser : 1, location_idlocation : id}
 
@@ -89,6 +94,10 @@
                         console.log(error);
                     });
             },
+
+            //fonction deleteLocFav : effectue une requête vers l'api afin de supprimer un favori
+            //params : 
+            // id : l'id de la location a supprimer des favoris
             deleteLocFav : function(id){
                 this.$http
                     .delete("http://localhost:3000/location",{ data: {user_iduser : 1, location_idlocation : id}})
@@ -99,7 +108,11 @@
                         console.log(error);
                     });
             },
-            isFav : function(id){
+
+            //fonction getFavs : récupere les favoris présent en base afin de mettre a jour l'état des locations correspondantes
+            //params : 
+            // id : l'id de la location a supprimer des favoris
+            getFavs : function(id){
 
                 this.$http
                     .get("http://localhost:3000/location")
@@ -161,7 +174,8 @@
             }
         },
         mounted(){
-            this.isFav(this.$route.params.location.id)
+            
+            this.getFavs(this.$route.params.location.id)
             this.getCharaters(this.$route.params.location.subList)
             console.log()
 

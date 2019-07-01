@@ -25,29 +25,32 @@ import Menu from '../../components/Menu.vue'
             }
         },
         methods : {
+
+            //fonction getFavoriteResidents : permet de récupérer les residents favoris 
             getFavoriteResidents : function(){
                 this.$http
                     .get("http://localhost:3000/residents")
                     .then((response) => {
                         console.log(response.data);
-                        let chartab = { favid : [], charids : []};
+                        let chartab = [];
                         response.data.forEach((char) => {
-                            chartab.favid.push({idfav : char.idfavorite_resident, idchar : char.resident_idresident});
-                            chartab.charids.push(char.resident_idresident);
+                            chartab.push(char.resident_idresident);
                         })
                         this.getCharaters(chartab)
                     })
             },
+            //fonction getCharacters : permet de récupérer les infos des personnages favoris via l'api rickandmorty
+            //params : 
+            //characters : tableau contenant les id des résidents favoris
             getCharaters : function(characters){
                 this.$http
-                    .get('https://rickandmortyapi.com/api/character/'+characters.charids)
+                    .get('https://rickandmortyapi.com/api/character/'+characters)
                     .then(response => {
                         
                         //la structure de la réponse étant différente qu'il y est un ou plusieurs personnage, on effectue un traitement en conséquence
                         if (response.data.id) {
                             
                             let character = {
-                                    favid : characters.favid[0],
                                     id: response.data.id,
                                     image : response.data.image,
                                     name : response.data.name,
@@ -60,15 +63,7 @@ import Menu from '../../components/Menu.vue'
                                 this.residents.push(character);
                         }else{
                             response.data.forEach(char => {
-                                let favId = 0;
-                                characters.favid.forEach(fav => {
-                                    if (fav.idchar == char.id ) {
-                                        favId = fav.idfav;
-                                    }
-                                });
-
                                 let character = {
-                                    favid : favId,
                                     id: char.id,
                                     image : char.image,
                                     name : char.name,

@@ -29,7 +29,9 @@ export default {
     },
     methods: {
 
-        
+        //fonction fav : permet d'ajouter/supprimer des résidents aux favoris
+        //params :
+        //id : l'id du résident ajouter/supprimer des favoris
         fav : function(id){
             let clickedCard = document.getElementById(id);
             let starContainer = clickedCard.querySelector(".fav-star");
@@ -52,6 +54,7 @@ export default {
                 
             }
         },
+
         //fonction toogleInfos : sert a display/cacher les informations des résidents
         //params : 
         //id : id de la card qui à été cliquée et du résident
@@ -85,6 +88,10 @@ export default {
                 cardInfos.style.display = "";
             }
         },
+
+        //fonction addFav : effecute la requete d'ajout d'un résident à un favoris
+        //params : 
+        //id : l'id du résident à ajouter aux favoris
         addFav : function(id){
             let favoriteResident = {user_iduser : 1, resident_idresident : id}
 
@@ -97,6 +104,10 @@ export default {
                         console.log(error);
                     });
         },
+
+        //fonction deleteFav : effecute la requete de suppression d'un résident aux favoris
+        //params : 
+        //id : l'id du résident à supprimer des favoris
         deleteFav : function(id){
             this.$http
                     .delete("http://localhost:3000/residents",{ data: {user_iduser : 1, resident_idresident : id}})
@@ -107,6 +118,8 @@ export default {
                         console.log(error);
                     });
         },
+
+        //fonction isfav : récuper les favoris afin de pouvoir mettre a jour l'état des résident de la liste
         isFav : function(){
              this.$http
                     .get("http://localhost:3000/residents")
@@ -127,6 +140,7 @@ export default {
     },
     mounted(){
         this.isFav();
+        
         //initialisation du style du détail et des infos de la carte
         let detailFields =  document.querySelectorAll('.detail-field')
         let cardInfos =  document.querySelectorAll('.card-infos')

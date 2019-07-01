@@ -6,6 +6,8 @@ import Axios from 'axios'
 Vue.config.productionTip = false
 //ligne permettant d'utiliser Axios
 Vue.prototype.$http = Axios
+
+//init
 new Vue({
   router,
   Axios,
