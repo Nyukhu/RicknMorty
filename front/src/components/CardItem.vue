@@ -1,6 +1,8 @@
 <template>
-    <div class="card-item flex-column" :id=item.id v-bind:style="{ 'background-image': 'url(' + item.image + ')' }" v-on:click=toggleInfos(item.id)>
-        <div class="card-content flex-row space-between">
+    <div class="card-item flex-column" :id=item.id v-bind:style="{ 'background-image': 'url(' + item.image + ')' }">
+        
+        <div class="fav-star" v-on:click=fav(item.id)><i class="far fa-star"></i></div>
+        <div class="card-content flex-row space-between" v-on:click=toggleInfos(item.id)>
             <div class="card-infos flex-row center-content">
                 <p class="card-title">{{ item.name }}</p>
             </div>
@@ -27,10 +29,32 @@ export default {
     },
     methods: {
 
+        
+        fav : function(id){
+            let clickedCard = document.getElementById(id);
+            let starContainer = clickedCard.querySelector(".fav-star");
+
+            if (!starContainer.classList.contains('clicked')) {
+                starContainer.classList.add('clicked');
+                starContainer.style.border = "";
+                starContainer.style.backgroundColor = "greenyellow";
+                starContainer.style.color = "#2c2c2c";
+                this.addFav(id)
+
+                
+            }else{
+                
+                starContainer.classList.remove('clicked');                
+                starContainer.style.border = "solid 1px greenyellow";
+                starContainer.style.backgroundColor = "";
+                starContainer.style.color = "greenyellow";
+                this.deleteFav(id)
+                
+            }
+        },
         //fonction toogleInfos : sert a display/cacher les informations des résidents
         //params : 
-        //id : id de la card qui à été cliquéé et du résident
-        
+        //id : id de la card qui à été cliquée et du résident
         toggleInfos : function(id){
             let clickedCard = document.getElementById(id)
 
@@ -60,10 +84,55 @@ export default {
                 cardInfos.style.width = "100%";
                 cardInfos.style.display = "";
             }
+        },
+        addFav : function(id){
+            let favoriteResident = {user_iduser : 1, resident_idresident : id}
+
+            this.$http
+                    .post("http://localhost:3000/residents",favoriteResident)
+                    .then((response) => {
+                        console.log(response)
+                    })
+                     .catch(function (error) {
+                        console.log(error);
+                    });
+        },
+        deleteFav : function(id){
+            this.$http
+                    .delete("http://localhost:3000/residents",{ data: {user_iduser : 1, resident_idresident : id}})
+                    .then((response) => {
+                        console.log(response)
+                    })
+                     .catch(function (error) {
+                        console.log(error);
+                    });
+        },
+        isFav : function(){
+
+            
+
+             this.$http
+                    .get("http://localhost:3000/residents")
+                    .then((response) => {
+                        response.data.forEach((resident) => {
+
+
+
+                            if (resident.resident_idresident == this.item.id) {
+                                
+                                let starContainer = this.$el.querySelector(".fav-star");
+                                console.log(starContainer)
+                                starContainer.classList.add('clicked');
+                                starContainer.style.border = "";
+                                starContainer.style.backgroundColor = "greenyellow";
+                                starContainer.style.color = "#2c2c2c";
+                            }
+                        })
+                    })
         }
     },
     mounted(){
-
+        this.isFav();
         //initialisation du style du détail et des infos de la carte
         let detailFields =  document.querySelectorAll('.detail-field')
         let cardInfos =  document.querySelectorAll('.card-infos')
@@ -104,6 +173,8 @@ export default {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     text-decoration: none;
+    position: relative;
+
 }
 
 .card-item:hover {
@@ -118,6 +189,8 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #202020d3;
+    position: relative;
+   
 }
 .card-image{
     width: 100%;
@@ -165,6 +238,23 @@ export default {
     text-align: right;
     margin-right:1vw; 
 
+
+}
+.fav-star{
+    height: 5vh;
+    width: 5vh;
+    color: greenyellow;
+    font-size: 1.5em;
+    position: absolute;
+    top:0%;
+    left:83%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px greenyellow;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 
 }
 

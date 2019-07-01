@@ -47,8 +47,8 @@ FavResident.getAllFavResident = function (result) {
             });   
 };
 
-FavResident.remove = function(FavResident, result){
-     sql.query("DELETE FROM FavResidents WHERE user_iduser = ? AND resident_idresident = ?", [FavResident.user_iduser,FavResident.resident_idresident], function (err, res) {
+FavResident.deleteFavResident = function(FavResident, result){
+     sql.query("DELETE FROM favorite_resident WHERE user_iduser = ? AND resident_idresident = ? ", [FavResident.user_iduser,FavResident.resident_idresident], function (err, res) {
 
                 if(err) {
                     console.log("error: ", err);

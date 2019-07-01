@@ -25,6 +25,7 @@ export default {
     align-items: center;
     position:sticky;
     top: 0px;
+    z-index: 1000;
 }
 .nav-item{
   height: 100%;

@@ -46,10 +46,19 @@ exports.read_a_favResident = function(req, res) {
 
 exports.delete_a_favResident = function(req, res) {
 
+ var new_FavResident = new FavResident(req.body);
+  console.log(req.body)
+  //handles null error 
+   if(!new_FavResident.user_iduser || !new_FavResident.resident_idresident){
 
-  FavResident.remove( req.params.FavResidentId, function(err, FavResident) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'FavResident successfully deleted' });
-  });
+            res.status(400).send({ error:true, message: 'Please provide user_id/resident_id' });
+
+        }
+else{
+    FavResident.deleteFavResident( new_FavResident, function(err, new_FavResident) {
+      if (err)
+        res.send(err);
+      res.json({ message: 'FavResident successfully deleted' });
+    });
+  }
 };
